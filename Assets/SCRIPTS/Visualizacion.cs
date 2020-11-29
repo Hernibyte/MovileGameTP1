@@ -387,6 +387,7 @@ public class Visualizacion : MonoBehaviour
 	
 	void SetVolante()
 	{
+        /*
 		GUI.skin = GS_Volante;
 		
 		R.width = VolanteEsc * Screen.width /100;
@@ -408,6 +409,7 @@ public class Visualizacion : MonoBehaviour
 		GUI.Box(R,"");
 		
 		GUIUtility.RotateAroundPivot(angulo*(-1), centro);
+        */
 	}
 	
 	void SetInv2()
