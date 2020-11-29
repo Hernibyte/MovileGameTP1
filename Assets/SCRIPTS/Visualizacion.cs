@@ -263,15 +263,15 @@ public class Visualizacion : MonoBehaviour
 	{
 		GUI.skin = GS_Din;
 		
-		R.width = DinEsc.x *Screen.width /100;
-		R.height = DinEsc.y *Screen.height /100;
+		R.width = DinEsc.x *Screen.width;
+		R.height = DinEsc.y *Screen.height;
 		R.x = DinPos[0].x *Screen.width /100;
 		R.y = DinPos[0].y *Screen.height /100;
 		if(LadoAct == Visualizacion.Lado.Der)
 			R.x = DinPos[1].x *Screen.width /100;
 			//R.x = (Screen.width) - (Screen.width/2) - R.x;
-		GUI.Box(R, "$" + PrepararNumeros(Pj.Dinero));
-	}
+		GUI.Box(R, "$" + PrepararNumeros(Pj.Dinero));	
+    }
 	
 	void SetCalibr()
 	{

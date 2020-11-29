@@ -7,9 +7,11 @@ public class PalletMover : ManejoPallets {
     public MoveType miInput;
     public enum MoveType {
         WASD,
-        Arrows
+        Arrows,
+        JoyStick
     }
 
+    public JoyStick joyStick;
     public ManejoPallets Desde, Hasta;
     bool segundoCompleto = false;
 
@@ -34,6 +36,20 @@ public class PalletMover : ManejoPallets {
                     SegundoPaso();
                 }
                 if (segundoCompleto && Tenencia() && Input.GetKeyDown(KeyCode.RightArrow)) {
+                    TercerPaso();
+                }
+                break;
+            case MoveType.JoyStick:
+                if (joyStick.Horizontal < 0 && joyStick.Vertical < 0)
+                {
+                    PrimerPaso();
+                }
+                if (joyStick.Vertical > 0)
+                {
+                    SegundoPaso();
+                }
+                if (joyStick.Horizontal > 0 && joyStick.Vertical > 0)
+                {
                     TercerPaso();
                 }
                 break;

@@ -116490,6 +116490,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Controlador: {fileID: 0}
   miInput: 1
+  joyStick: {fileID: 0}
   Desde: {fileID: 13040}
   Hasta: {fileID: 13041}
 --- !u!1001 &629314373
@@ -116570,6 +116571,11 @@ PrefabInstance:
       propertyPath: CamDescarga
       value: 
       objectReference: {fileID: 6359}
+    - target: {fileID: 114998836577221504, guid: b81b1a58a0f14c9439cbdd014e695f71,
+        type: 3}
+      propertyPath: VelEntrada
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b81b1a58a0f14c9439cbdd014e695f71, type: 3}
 --- !u!1 &908329605
@@ -116690,6 +116696,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Controlador: {fileID: 0}
   miInput: 0
+  joyStick: {fileID: 0}
   Desde: {fileID: 13044}
   Hasta: {fileID: 13043}
 --- !u!1 &1049659492 stripped
@@ -116748,7 +116755,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Controlador: {fileID: 0}
-  miInput: 0
+  miInput: 2
+  joyStick: {fileID: 1791523017}
   Desde: {fileID: 13062}
   Hasta: {fileID: 13063}
 --- !u!1 &1425887806 stripped
@@ -116801,7 +116809,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Controlador: {fileID: 0}
-  miInput: 1
+  miInput: 2
+  joyStick: {fileID: 18497952}
   Desde: {fileID: 13017}
   Hasta: {fileID: 13016}
 --- !u!1 &1679474635
