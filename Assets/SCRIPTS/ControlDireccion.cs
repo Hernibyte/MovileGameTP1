@@ -3,8 +3,9 @@ using System.Collections;
 
 public class ControlDireccion : MonoBehaviour 
 {
-	public enum TipoInput {Mouse, Kinect, AWSD, Arrows}
+	public enum TipoInput {Mouse, Kinect, AWSD, Arrows, JoyStick}
 	public TipoInput InputAct = ControlDireccion.TipoInput.Mouse;
+    public JoyStick joyStick;
 
 	public Transform ManoDer;
 	public Transform ManoIzq;
@@ -33,6 +34,19 @@ public class ControlDireccion : MonoBehaviour
 	{
 		switch(InputAct)
 		{
+        case TipoInput.JoyStick:
+                if (Habilitado)
+                {
+                    if (joyStick.Horizontal < 0)
+                    {
+                        gameObject.SendMessage("SetGiro", -1);
+                    }
+                    if (joyStick.Horizontal > 0)
+                    {
+                        gameObject.SendMessage("SetGiro", 1);
+                    }
+                }
+            break;
 		case TipoInput.Mouse:
 			if(Habilitado) 
 				gameObject.SendMessage("SetGiro", MousePos.Relation(MousePos.AxisRelation.Horizontal));//debe ser reemplanado
