@@ -21,14 +21,14 @@ public class MenuManager : MonoBehaviour
         multiPlayer.gameObject.SetActive(true);
     }
 
-    public void LoadSingle()
+    public void LoadMulti()
     {
         SceneManager.LoadScene("conduccion9");
     }
 
-    public void LoadMulti()
+    public void LoadSingle()
     {
-        SceneManager.LoadScene("conduccionAlone");
+        Debug.Log("No implementado");
     }
 
     public void ExitGame()
