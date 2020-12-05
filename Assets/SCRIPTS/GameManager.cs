@@ -446,6 +446,12 @@ public class GameManager : MonoBehaviour
 		{
 			ObjsCarrera[i].SetActiveRecursively(true);
 		}
+        if (Dificulty.instance != null && Dificulty.instance.easyMode == true)
+        {
+            ObjsCarrera[0].SetActiveRecursively(false);
+        }
+        else
+            ObjsCarrera[0].SetActiveRecursively(true);
 		
 		/*
 		for(int i = 0; i < ObjsTuto1.Length; i++)
