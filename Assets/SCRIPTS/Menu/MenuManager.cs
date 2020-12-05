@@ -28,7 +28,7 @@ public class MenuManager : MonoBehaviour
 
     public void LoadSingle()
     {
-        Debug.Log("No implementado");
+        SceneManager.LoadScene("Singleplayer");
     }
 
     public void ExitGame()

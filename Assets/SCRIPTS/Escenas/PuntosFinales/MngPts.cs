@@ -1,9 +1,13 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class MngPts : MonoBehaviour 
 {
 	Rect R = new Rect();
+
+    public enum gameMode { single, multi }
+    public gameMode gameInstance;
 	
 	public float TiempEmpAnims = 2.5f;
 	float Tempo = 0;
@@ -48,14 +52,22 @@ public class MngPts : MonoBehaviour
 		   Input.GetKeyDown(KeyCode.Return) ||
 		   Input.GetKeyDown(KeyCode.Mouse0))
 		{
-			Application.LoadLevel(0);
+            SceneManager.LoadScene("Menu");
 		}
 		
 		//REINICIAR
 		if(Input.GetKeyDown(KeyCode.Mouse1) ||
 		   Input.GetKeyDown(KeyCode.Keypad0))
 		{
-			Application.LoadLevel(Application.loadedLevel);
+            switch (gameInstance)
+            {
+                case gameMode.single:
+                    SceneManager.LoadScene("PtsSingleFinal");
+                    break;
+                case gameMode.multi:
+                    SceneManager.LoadScene("PtsFinal");
+                    break; 
+            }
 		}
 		
 		//CIERRA LA APLICACION
@@ -67,14 +79,14 @@ public class MngPts : MonoBehaviour
 		//CALIBRACION DEL KINECT
 		if(Input.GetKeyDown(KeyCode.Backspace))
 		{
-			Application.LoadLevel(3);
+			//Application.LoadLevel(3);
 		}		
 		
 		
 		TiempEspReiniciar -= Time.deltaTime;
 		if(TiempEspReiniciar <= 0 )
 		{
-			Application.LoadLevel(0);
+            SceneManager.LoadScene("Menu");
 		}
 		
 		
@@ -172,61 +184,96 @@ public class MngPts : MonoBehaviour
 	
 	void SetGanador()
 	{
-		switch(DatosPartida.LadoGanadaor)
-		{
-		case DatosPartida.Lados.Der:
-			
-			GS_Ganador.box.normal.background = Ganadores[1];
-			
-			break;
-			
-		case DatosPartida.Lados.Izq:
-			
-			GS_Ganador.box.normal.background = Ganadores[0];
-			
-			break;
-		}
+        switch (gameInstance)
+        {
+            case gameMode.single:
+
+                GS_Ganador.box.normal.background = Ganadores[0];
+
+                break;
+            case gameMode.multi:
+
+                switch (DatosPartida.LadoGanadaor)
+                {
+                    case DatosPartida.Lados.Der:
+
+                        GS_Ganador.box.normal.background = Ganadores[1];
+
+                        break;
+
+                    case DatosPartida.Lados.Izq:
+
+                        GS_Ganador.box.normal.background = Ganadores[0];
+
+                        break;
+                }
+
+                break;
+        }
 	}
 	
 	void SetDinero()
 	{
-		GUI.skin = GS_Dinero;
-		
-		R.width = DineroEsc.x * Screen.width/100;
-		R.height = DineroEsc.y * Screen.height/100;
-		
-		
-		
-		//IZQUIERDA
-		R.x = DineroPos[0].x * Screen.width/100;
-		R.y = DineroPos[0].y * Screen.height/100;
-		
-		if(DatosPartida.LadoGanadaor == DatosPartida.Lados.Izq)//izquierda
-		{
-			if(!PrimerImaParp)//para que parpadee
-				GUI.Box(R, "$" + Viz.PrepararNumeros(DatosPartida.PtsGanador));
-		}
-		else
-		{
-			GUI.Box(R, "$" + Viz.PrepararNumeros(DatosPartida.PtsPerdedor));
-		}
-		
-		
-		
-		//DERECHA
-		R.x = DineroPos[1].x * Screen.width/100;
-		R.y = DineroPos[1].y * Screen.height/100;
-		
-		if(DatosPartida.LadoGanadaor == DatosPartida.Lados.Der)//derecha
-		{
-			if(!PrimerImaParp)//para que parpadee
-				GUI.Box(R, "$" + Viz.PrepararNumeros(DatosPartida.PtsGanador));
-		}
-		else
-		{
-			GUI.Box(R, "$" + Viz.PrepararNumeros(DatosPartida.PtsPerdedor));
-		}
-		
+        switch (gameInstance)
+        {
+            case gameMode.single:
+
+                GUI.skin = GS_Dinero;
+
+                R.width = DineroEsc.x * Screen.width / 100;
+                R.height = DineroEsc.y * Screen.height / 100;
+
+
+
+                //IZQUIERDA
+                R.x = DineroPos[0].x * Screen.width / 100;
+                R.y = DineroPos[0].y * Screen.height / 100;
+
+                if (!PrimerImaParp)//para que parpadee
+                    GUI.Box(R, "$" + Viz.PrepararNumeros(DatosPartida.PtsGanador));
+
+                break;
+            case gameMode.multi:
+
+                GUI.skin = GS_Dinero;
+
+                R.width = DineroEsc.x * Screen.width / 100;
+                R.height = DineroEsc.y * Screen.height / 100;
+
+
+
+                //IZQUIERDA
+                R.x = DineroPos[0].x * Screen.width / 100;
+                R.y = DineroPos[0].y * Screen.height / 100;
+
+                if (DatosPartida.LadoGanadaor == DatosPartida.Lados.Izq)//izquierda
+                {
+                    if (!PrimerImaParp)//para que parpadee
+                        GUI.Box(R, "$" + Viz.PrepararNumeros(DatosPartida.PtsGanador));
+                }
+                else
+                {
+                    GUI.Box(R, "$" + Viz.PrepararNumeros(DatosPartida.PtsPerdedor));
+                }
+
+
+
+                //DERECHA
+                R.x = DineroPos[1].x * Screen.width / 100;
+                R.y = DineroPos[1].y * Screen.height / 100;
+
+                if (DatosPartida.LadoGanadaor == DatosPartida.Lados.Der)//derecha
+                {
+                    if (!PrimerImaParp)//para que parpadee
+                        GUI.Box(R, "$" + Viz.PrepararNumeros(DatosPartida.PtsGanador));
+                }
+                else
+                {
+                    GUI.Box(R, "$" + Viz.PrepararNumeros(DatosPartida.PtsPerdedor));
+                }
+
+                break;
+        }
 	}
 	
 	void SetCartelGanador()

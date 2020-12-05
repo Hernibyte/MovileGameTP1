@@ -9,12 +9,15 @@ EditorBuildSettings:
     path: Assets/ESCENAS/Menu.unity
     guid: 26507e35c97c46d41a2d80be57040ba4
   - enabled: 1
-    path: Assets/ESCENAS/conduccionAlone.unity
-    guid: 07eb7fe37a8f84444982108508670b19
-  - enabled: 1
     path: Assets/ESCENAS/conduccion9.unity
     guid: 6a990c81459e9b04c87adbbd2d639bbd
   - enabled: 1
     path: Assets/ESCENAS/PtsFinal.unity
     guid: 3fed48a553168ae458bbf014c512a5cd
+  - enabled: 1
+    path: Assets/ESCENAS/Singleplayer.unity
+    guid: 5027c30ff88c1e446bbec21f1b09a71e
+  - enabled: 1
+    path: Assets/ESCENAS/PtsSingleFinal.unity
+    guid: 12149dab32694b94bb29433816059009
   m_configObjects: {}

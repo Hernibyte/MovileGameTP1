@@ -13,6 +13,9 @@ public class Visualizacion : MonoBehaviour
 	
 	ControlDireccion Direccion;
 	Player Pj;
+
+    public enum gameMode { set, none }
+    public gameMode gameInstance;
 	
 	//las distintas camaras
 	public Camera CamCalibracion;
@@ -155,7 +158,15 @@ public class Visualizacion : MonoBehaviour
 	
 	public void CambiarACalibracion()
 	{
-		CamCalibracion.enabled = true;
+        switch (gameInstance)
+        {
+            case gameMode.none:
+                CamCalibracion.enabled = false;
+                break;
+            case gameMode.set:
+                CamCalibracion.enabled = true;
+                break;
+        }
 		CamConduccion.enabled = false;
 		CamDescarga.enabled = false;
 	}
@@ -220,122 +231,155 @@ public class Visualizacion : MonoBehaviour
 	
 	void SetBonus()
 	{
-		if(Pj.ContrDesc.PEnMov != null)
-		{
-			//el fondo
-			GUI.skin = GS_FondoFondoBonusColor;
-			
-			R.width = ColorFondoFondoEsc.x *Screen.width /100;
-			R.height = ColorFondoFondoEsc.y *Screen.height /100;
-			R.x = ColorFondoFondoPos.x *Screen.width /100;
-			R.y = ColorFondoFondoPos.y *Screen.height /100;
-			if(LadoAct == Visualizacion.Lado.Der)
-				R.x += (Screen.width)/2;			
-			GUI.Box(R, "");
-			
-			
-			//el fondo
-			GUI.skin = GS_FondoBonusColor;
-			
-			R.width = ColorFondoEsc.x *Screen.width /100;
-			R.height = (ColorFondoEsc.y *Screen.height /100) * (Pj.ContrDesc.Bonus / (int)Pallet.Valores.Valor2);
-			R.x = ColorFondoPos.x *Screen.width /100;
-			R.y = (ColorFondoPos.y *Screen.height /100) - R.height;
-			if(LadoAct == Visualizacion.Lado.Der)
-				R.x += (Screen.width)/2;			
-			GUI.Box(R, "");
-			
-			
-			//la bolsa
-			GUI.skin = GS_Bonus;
+        switch (gameInstance)
+        {
+            case gameMode.set:
+                if (Pj.ContrDesc.PEnMov != null)
+                {
+                    //el fondo
+                    GUI.skin = GS_FondoFondoBonusColor;
+
+                    R.width = ColorFondoFondoEsc.x * Screen.width / 100;
+                    R.height = ColorFondoFondoEsc.y * Screen.height / 100;
+                    R.x = ColorFondoFondoPos.x * Screen.width / 100;
+                    R.y = ColorFondoFondoPos.y * Screen.height / 100;
+                    if (LadoAct == Visualizacion.Lado.Der)
+                        R.x += (Screen.width) / 2;
+                    GUI.Box(R, "");
+
+
+                    //el fondo
+                    GUI.skin = GS_FondoBonusColor;
+
+                    R.width = ColorFondoEsc.x * Screen.width / 100;
+                    R.height = (ColorFondoEsc.y * Screen.height / 100) * (Pj.ContrDesc.Bonus / (int)Pallet.Valores.Valor2);
+                    R.x = ColorFondoPos.x * Screen.width / 100;
+                    R.y = (ColorFondoPos.y * Screen.height / 100) - R.height;
+                    if (LadoAct == Visualizacion.Lado.Der)
+                        R.x += (Screen.width) / 2;
+                    GUI.Box(R, "");
+
+
+                    //la bolsa
+                    GUI.skin = GS_Bonus;
+
+                    R.width = BonusEsc.x * Screen.width / 100;
+                    R.height = R.width / 2;
+                    R.x = BonusPos.x * Screen.width / 100;
+                    R.y = BonusPos.y * Screen.height / 100;
+                    if (LadoAct == Visualizacion.Lado.Der)
+                        R.x += (Screen.width) / 2;
+                    GUI.Box(R, "     $" + Pj.ContrDesc.Bonus.ToString("0"));
+                }
+                break;
+            case gameMode.none:
+
+                break;
+        }
 		
-			R.width = BonusEsc.x *Screen.width /100;
-			R.height = R.width /2;
-			R.x = BonusPos.x *Screen.width /100;
-			R.y = BonusPos.y *Screen.height /100;
-			if(LadoAct == Visualizacion.Lado.Der)
-				R.x += (Screen.width)/2;
-			GUI.Box(R, "     $" + Pj.ContrDesc.Bonus.ToString("0"));
-		}
 	}
 	
 	void SetDinero()
 	{
-		GUI.skin = GS_Din;
-		
-		R.width = DinEsc.x *Screen.width;
-		R.height = DinEsc.y *Screen.height;
-		R.x = DinPos[0].x *Screen.width /100;
-		R.y = DinPos[0].y *Screen.height /100;
-		if(LadoAct == Visualizacion.Lado.Der)
-			R.x = DinPos[1].x *Screen.width /100;
-			//R.x = (Screen.width) - (Screen.width/2) - R.x;
-		GUI.Box(R, "$" + PrepararNumeros(Pj.Dinero));	
+        switch (gameInstance)
+        {
+            case gameMode.set:
+                GUI.skin = GS_Din;
+
+                R.width = DinEsc.x * Screen.width;
+                R.height = DinEsc.y * Screen.height;
+                R.x = DinPos[0].x * Screen.width / 100;
+                R.y = DinPos[0].y * Screen.height / 100;
+                if (LadoAct == Visualizacion.Lado.Der)
+                    R.x = DinPos[1].x * Screen.width / 100;
+                //R.x = (Screen.width) - (Screen.width/2) - R.x;
+                GUI.Box(R, "$" + PrepararNumeros(Pj.Dinero));
+                break;
+            case gameMode.none:
+        
+                break;
+        }
     }
 	
 	void SetCalibr()
 	{
-		GUI.skin = GS_TutoCalib;
-		
-		R.width = ReadyEsc.x *Screen.width /100;
-		R.height = ReadyEsc.y *Screen.height /100;
-		R.x = ReadyPos.x *Screen.width /100;
-		R.y = ReadyPos.y *Screen.height /100;
-		if(LadoAct == Visualizacion.Lado.Der)
-			R.x = (Screen.width) - R.x - R.width;
-		
-		switch(Pj.ContrCalib.EstAct)
-		{
-		case ContrCalibracion.Estados.Calibrando:
-			
-			//pongase en posicion para iniciar
-			GS_TutoCalib.box.normal.background = ImaEnPosicion;			
-			GUI.Box(R,"");
-			
-			break;
-			
-		case ContrCalibracion.Estados.Tutorial:
-			//tome la bolsa y depositela en el estante
-			
-			TempoIntTuto += T.GetDT();
-			if(TempoIntTuto >= Intervalo)
-			{
-				TempoIntTuto = 0;
-				if(EnCurso + 1 < ImagenesDelTuto.Length)
-					EnCurso++;
-				else
-					EnCurso = 0;
-			}
-			GS_TutoCalib.box.normal.background = ImagenesDelTuto[EnCurso];
-			
-			GUI.Box(R,"");
-			
-			break;
-			
-		case ContrCalibracion.Estados.Finalizado:
-			//esperando al otro jugador		
-			GS_TutoCalib.box.normal.background = ImaReady;
-			GUI.Box(R,"");
-			
-			break;
-		}
+        switch (gameInstance)
+        {
+            case gameMode.set:
+                GUI.skin = GS_TutoCalib;
+
+                R.width = ReadyEsc.x * Screen.width / 100;
+                R.height = ReadyEsc.y * Screen.height / 100;
+                R.x = ReadyPos.x * Screen.width / 100;
+                R.y = ReadyPos.y * Screen.height / 100;
+                if (LadoAct == Visualizacion.Lado.Der)
+                    R.x = (Screen.width) - R.x - R.width;
+
+                switch (Pj.ContrCalib.EstAct)
+                {
+                    case ContrCalibracion.Estados.Calibrando:
+
+                        //pongase en posicion para iniciar
+                        GS_TutoCalib.box.normal.background = ImaEnPosicion;
+                        GUI.Box(R, "");
+
+                        break;
+
+                    case ContrCalibracion.Estados.Tutorial:
+                        //tome la bolsa y depositela en el estante
+
+                        TempoIntTuto += T.GetDT();
+                        if (TempoIntTuto >= Intervalo)
+                        {
+                            TempoIntTuto = 0;
+                            if (EnCurso + 1 < ImagenesDelTuto.Length)
+                                EnCurso++;
+                            else
+                                EnCurso = 0;
+                        }
+                        GS_TutoCalib.box.normal.background = ImagenesDelTuto[EnCurso];
+
+                        GUI.Box(R, "");
+
+                        break;
+
+                    case ContrCalibracion.Estados.Finalizado:
+                        //esperando al otro jugador		
+                        GS_TutoCalib.box.normal.background = ImaReady;
+                        GUI.Box(R, "");
+
+                        break;
+                }
+                break;
+            case gameMode.none:
+
+                break;
+        }
 	}
 	
 	void SetTuto()
 	{
-		if(Pj.ContrTuto.Finalizado)
-		{
-			GUI.skin = GS_TutoCalib;
-			
-			R.width = ReadyEsc.x *Screen.width /100;
-			R.height = ReadyEsc.y *Screen.height /100;
-			R.x = ReadyPos.x *Screen.width /100;
-			R.y = ReadyPos.y *Screen.height /100;
-			if(LadoAct == Visualizacion.Lado.Der)
-				R.x = (Screen.width) - R.x - R.width;
-			
-			GUI.Box(R,"ESPERANDO AL OTRO JUGADOR");
-		}
+        switch (gameInstance)
+        {
+            case gameMode.set:
+                if (Pj.ContrTuto.Finalizado)
+                {
+                    GUI.skin = GS_TutoCalib;
+
+                    R.width = ReadyEsc.x * Screen.width / 100;
+                    R.height = ReadyEsc.y * Screen.height / 100;
+                    R.x = ReadyPos.x * Screen.width / 100;
+                    R.y = ReadyPos.y * Screen.height / 100;
+                    if (LadoAct == Visualizacion.Lado.Der)
+                        R.x = (Screen.width) - R.x - R.width;
+
+                    GUI.Box(R, "ESPERANDO AL OTRO JUGADOR");
+                }
+                break;
+            case gameMode.none:
+
+                break;
+        }
 	}
 	
 	/*
@@ -414,146 +458,171 @@ public class Visualizacion : MonoBehaviour
 	
 	void SetInv2()
 	{
-		GUI.skin = GS_Inv;
-		
-		R.width = FondoEsc.x * Screen.width /100;
-		R.height = FondoEsc.y * Screen.width /100;
-		R.x = FondoPos[0].x * Screen.width /100;
-		R.y = FondoPos[0].y * Screen.height /100;
-		
-		int contador = 0;
-		for(int i = 0; i < 3; i++)
-		{
-			if(Pj.Bolasas[i]!=null)
-				contador++;
-		}
-		
-		if(LadoAct == Visualizacion.Lado.Der)
-		{
-			//R.x = (Screen.width) - R.x - R.width;
-			R.x = FondoPos[1].x * Screen.width /100;
-			GS_Inv.box.normal.background = TextInvDer[contador];
-		}
-		else
-		{
-			GS_Inv.box.normal.background = TextInvIzq[contador];
-		}
-		
-		GUI.Box(R,"");
+        switch (gameInstance)
+        {
+            case gameMode.set:
+                GUI.skin = GS_Inv;
+
+                R.width = FondoEsc.x * Screen.width / 100;
+                R.height = FondoEsc.y * Screen.width / 100;
+                R.x = FondoPos[0].x * Screen.width / 100;
+                R.y = FondoPos[0].y * Screen.height / 100;
+
+                int contador = 0;
+                for (int i = 0; i < 3; i++)
+                {
+                    if (Pj.Bolasas[i] != null)
+                        contador++;
+                }
+
+                if (LadoAct == Visualizacion.Lado.Der)
+                {
+                    //R.x = (Screen.width) - R.x - R.width;
+                    R.x = FondoPos[1].x * Screen.width / 100;
+                    GS_Inv.box.normal.background = TextInvDer[contador];
+                }
+                else
+                {
+                    GS_Inv.box.normal.background = TextInvIzq[contador];
+                }
+
+                GUI.Box(R, "");
+                break;
+            case gameMode.none:
+
+                break;
+        }
 	}
 	
 	void SetInv3()
 	{
-		GUI.skin = GS_Inv;
-		
-		R.width = FondoEsc.x * Screen.width /100;
-		R.height = FondoEsc.y * Screen.width /100;
-		R.x = FondoPos[0].x * Screen.width /100;
-		R.y = FondoPos[0].y * Screen.height /100;
-		
-		int contador = 0;
-		for(int i = 0; i < 3; i++)
-		{
-			if(Pj.Bolasas[i]!=null)
-				contador++;
-		}
-		
-		if(LadoAct == Visualizacion.Lado.Der)
-		{
-			//R.x = (Screen.width) - (Screen.width/2) - R.x;
-			R.x = FondoPos[1].x * Screen.width /100;
-			
-			if(contador < 3)
-				GS_Inv.box.normal.background = TextInvDer[contador];
-			else
-			{
-				TempParp += T.GetDT();
-				
-				if(TempParp >= Parpadeo)
-				{
-					TempParp = 0;
-					if(PrimIma)
-						PrimIma = false;
-					else
-						PrimIma = true;
-				}
-				
-				if(PrimIma)
-				{
-					GS_Inv.box.normal.background = TextInvDer[3];
-				}
-				else
-				{
-					GS_Inv.box.normal.background = TextInvDer[4];
-				}
-				
-			}
-		}
-		else
-		{
-			if(contador < 3)
-				GS_Inv.box.normal.background = TextInvIzq[contador];
-			else
-			{
-				TempParp += T.GetDT();
-				
-				if(TempParp >= Parpadeo)
-				{
-					TempParp = 0;
-					if(PrimIma)
-						PrimIma = false;
-					else
-						PrimIma = true;
-				}
-				
-				if(PrimIma)
-				{
-					GS_Inv.box.normal.background = TextInvIzq[3];
-				}
-				else
-				{
-					GS_Inv.box.normal.background = TextInvIzq[4];
-				}
-			}
-		}
-		
-		GUI.Box(R,"");
+        switch (gameInstance)
+        {
+            case gameMode.set:
+                GUI.skin = GS_Inv;
+
+                R.width = FondoEsc.x * Screen.width / 100;
+                R.height = FondoEsc.y * Screen.width / 100;
+                R.x = FondoPos[0].x * Screen.width / 100;
+                R.y = FondoPos[0].y * Screen.height / 100;
+
+                int contador = 0;
+                for (int i = 0; i < 3; i++)
+                {
+                    if (Pj.Bolasas[i] != null)
+                        contador++;
+                }
+
+                if (LadoAct == Visualizacion.Lado.Der)
+                {
+                    //R.x = (Screen.width) - (Screen.width/2) - R.x;
+                    R.x = FondoPos[1].x * Screen.width / 100;
+
+                    if (contador < 3)
+                        GS_Inv.box.normal.background = TextInvDer[contador];
+                    else
+                    {
+                        TempParp += T.GetDT();
+
+                        if (TempParp >= Parpadeo)
+                        {
+                            TempParp = 0;
+                            if (PrimIma)
+                                PrimIma = false;
+                            else
+                                PrimIma = true;
+                        }
+
+                        if (PrimIma)
+                        {
+                            GS_Inv.box.normal.background = TextInvDer[3];
+                        }
+                        else
+                        {
+                            GS_Inv.box.normal.background = TextInvDer[4];
+                        }
+
+                    }
+                }
+                else
+                {
+                    if (contador < 3)
+                        GS_Inv.box.normal.background = TextInvIzq[contador];
+                    else
+                    {
+                        TempParp += T.GetDT();
+
+                        if (TempParp >= Parpadeo)
+                        {
+                            TempParp = 0;
+                            if (PrimIma)
+                                PrimIma = false;
+                            else
+                                PrimIma = true;
+                        }
+
+                        if (PrimIma)
+                        {
+                            GS_Inv.box.normal.background = TextInvIzq[3];
+                        }
+                        else
+                        {
+                            GS_Inv.box.normal.background = TextInvIzq[4];
+                        }
+                    }
+                }
+
+                GUI.Box(R, "");
+                break;
+            case gameMode.none:
+
+                break;
+        }
 	}
 	
 	public string PrepararNumeros(int dinero)
 	{
-		string strDinero = dinero.ToString();
-		string res = "";
-		
-		if(dinero < 1)//sin ditero
-		{
-			res = "";
-		}else if(strDinero.Length == 6)//cientos de miles
-		{
-			for(int i = 0; i < strDinero.Length; i++)
-			{
-				res += strDinero[i];
-				
-				if(i == 2)
-				{
-					res += ".";
-				}
-			}
-		}else if(strDinero.Length == 7)//millones
-		{
-			for(int i = 0; i < strDinero.Length; i++)
-			{
-				res += strDinero[i];
-				
-				if(i == 0 || i == 3)
-				{
-					res += ".";
-				}
-			}
-		}
-		
-		return res;
-	}
+        string res = "";
+        switch (gameInstance)
+        {
+            case gameMode.set:
+                string strDinero = dinero.ToString();
+
+                if (dinero < 1)//sin ditero
+                {
+                    res = "";
+                }
+                else if (strDinero.Length == 6)//cientos de miles
+                {
+                    for (int i = 0; i < strDinero.Length; i++)
+                    {
+                        res += strDinero[i];
+
+                        if (i == 2)
+                        {
+                            res += ".";
+                        }
+                    }
+                }
+                else if (strDinero.Length == 7)//millones
+                {
+                    for (int i = 0; i < strDinero.Length; i++)
+                    {
+                        res += strDinero[i];
+
+                        if (i == 0 || i == 3)
+                        {
+                            res += ".";
+                        }
+                    }
+                }
+                break;
+            case gameMode.none:
+
+                break;
+        }
+        return res;
+    }
 	
 	
 	

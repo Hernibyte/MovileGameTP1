@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -17,6 +18,9 @@ public class GameManager : MonoBehaviour
 	
 	public Player Player1;
 	public Player Player2;
+
+    public enum gameMode { single, multi }
+    public gameMode gameInstance;
 	
 	//mueve los esqueletos para usar siempre los mismos
 	public Transform Esqueleto1;
@@ -117,14 +121,27 @@ public class GameManager : MonoBehaviour
 					FinTutorial(1);
 				}
 			}
+            //----
+                switch (gameInstance)
+                {
+                    case gameMode.single:
 
-                if (PlayerInfo1.PJ == null && Input.GetKeyDown(KeyCode.W)) {
+                        FinCalibracion(1);
+                        FinTutorial(1);
+
+                        break;
+                    case gameMode.multi:
+
+                        break;
+                }
+            //----
+                if (PlayerInfo1.PJ == null) {
                     PlayerInfo1 = new PlayerInfo(0, Player1);
                     PlayerInfo1.LadoAct = Visualizacion.Lado.Izq;
                     SetPosicion(PlayerInfo1);
                 }
 
-                if (PlayerInfo2.PJ == null && Input.GetKeyDown(KeyCode.UpArrow)) {
+                if (PlayerInfo2.PJ == null) {
                     PlayerInfo2 = new PlayerInfo(1, Player2);
                     PlayerInfo2.LadoAct = Visualizacion.Lado.Der;
                     SetPosicion(PlayerInfo2);
@@ -204,7 +221,15 @@ public class GameManager : MonoBehaviour
 			
 			TiempEspMuestraPts -= Time.deltaTime;
 			if(TiempEspMuestraPts <= 0)
-				Application.LoadLevel(Application.loadedLevel +1);				
+                    switch (gameInstance)
+                    {
+                        case gameMode.single:
+                            SceneManager.LoadScene("PtsSingleFinal");
+                            break;
+                        case gameMode.multi:
+                            SceneManager.LoadScene("PtsFinal");
+                            break;
+                    }			
 			
 			break;		
 		}
