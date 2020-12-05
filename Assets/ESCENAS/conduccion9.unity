@@ -116405,7 +116405,7 @@ PrefabInstance:
     - target: {fileID: 114475702172432364, guid: b81b1a58a0f14c9439cbdd014e695f71,
         type: 3}
       propertyPath: InputAct
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 114475702172432364, guid: b81b1a58a0f14c9439cbdd014e695f71,
         type: 3}
@@ -116490,7 +116490,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Controlador: {fileID: 0}
-  miInput: 2
+  miInput: 1
   joyStick: {fileID: 18497952}
   Desde: {fileID: 13040}
   Hasta: {fileID: 13041}
@@ -116555,7 +116555,7 @@ PrefabInstance:
     - target: {fileID: 114475702172432364, guid: b81b1a58a0f14c9439cbdd014e695f71,
         type: 3}
       propertyPath: InputAct
-      value: 4
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 114911345111112572, guid: b81b1a58a0f14c9439cbdd014e695f71,
         type: 3}
@@ -116596,7 +116596,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &908329606
 RectTransform:
   m_ObjectHideFlags: 0
@@ -116696,7 +116696,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Controlador: {fileID: 0}
-  miInput: 2
+  miInput: 0
   joyStick: {fileID: 1791523017}
   Desde: {fileID: 13044}
   Hasta: {fileID: 13043}
@@ -116756,7 +116756,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Controlador: {fileID: 0}
-  miInput: 2
+  miInput: 0
   joyStick: {fileID: 1791523017}
   Desde: {fileID: 13062}
   Hasta: {fileID: 13063}
@@ -116810,7 +116810,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Controlador: {fileID: 0}
-  miInput: 2
+  miInput: 1
   joyStick: {fileID: 18497952}
   Desde: {fileID: 13017}
   Hasta: {fileID: 13016}
@@ -116931,7 +116931,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1716168169
 RectTransform:
   m_ObjectHideFlags: 0
